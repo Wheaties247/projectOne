@@ -66,8 +66,9 @@ $(function() {
     this.createMoveSpace($movementZone3, 3);
     this.createMoveSpace($movementZone4, 4);
     this.manifestDice();
+    this.manifestPlayers();
     var $holdsDie = $('#dieHolder');
-    $holdsDie.click(gameEngine.rollDice);
+    $holdsDie.click(gameEngine.rollDice); // this line creates click event to roll die
   }
   function createMoveSpace(zone, indx) {
     for (var i = 0; i < 30; i++) {
@@ -84,11 +85,12 @@ $(function() {
       zone.append($smallDiv);
     } //places 30 divisions in a Zone
   }
+
   function manifestDice() {
     var $homeSquare = $('#pieceHome5');
     var $die1 = $('<div>', { class: 'dice', id: 'die1' });
     var $die2 = $('<div>', { class: 'dice', id: 'die2' });
-    $die2.css({ margin: '0 10px 0 10px' });
+    $die2.css({ marginLeft: '10px' });
     var $holdsDie = $('<div>', { id: 'dieHolder' });
     $holdsDie.append($die1, $die2);
     $homeSquare.append($holdsDie);
@@ -107,7 +109,61 @@ $(function() {
       $die2 = $('#die2');
     $die1.text($valueOfDice);
     $die2.text($valueOfDice2);
-    console.log(gameEngine);
+  }
+  function manifestPlayers() {
+    var $firstPlayer = $('#pieceHome1'),
+      $secondPlayer = $('#pieceHome7'),
+      $thirdPlayer = $('#pieceHome3'),
+      $fourthPlayer = $('#pieceHome9');
+
+    for (var i = 0; i < 4; i++) {
+      var $playerToken = $('<div>', { class: 'firstTokens' });
+      $playerToken.css({
+        width: '15px',
+        height: '15px',
+        background: 'red',
+        border: '1px solid black',
+        borderRadius: '6px',
+        margin: '1px',
+      });
+      $firstPlayer.append($playerToken);
+    }
+    for (var i = 0; i < 4; i++) {
+      var $player2Token = $('<div>', { class: 'secondTokens' });
+      $player2Token.css({
+        width: '15px',
+        height: '15px',
+        background: 'green',
+        border: '1px solid black',
+        borderRadius: '6px',
+        margin: '1px',
+      });
+      $secondPlayer.append($player2Token);
+    }
+    for (var i = 0; i < 4; i++) {
+      var $player3Token = $('<div>', { class: 'ThirdTokens' });
+      $player3Token.css({
+        width: '15px',
+        height: '15px',
+        background: 'blue',
+        border: '1px solid black',
+        borderRadius: '6px',
+        margin: '1px',
+      });
+      $thirdPlayer.append($player3Token);
+    }
+    for (var i = 0; i < 4; i++) {
+      var $player4Token = $('<div>', { class: 'FourthTokens' });
+      $player4Token.css({
+        width: '15px',
+        height: '15px',
+        background: 'purple',
+        border: '1px solid black',
+        borderRadius: '6px',
+        margin: '1px',
+      });
+      $fourthPlayer.append($player4Token);
+    }
   }
   var gameEngine = {
       // howManyPlayers: howManyPlayers,
@@ -119,6 +175,7 @@ $(function() {
     userInterphase = {
       // startLanding: startLanding,
       // fadeLanding: fadeLanding,
+      manifestPlayers: manifestPlayers,
       manifestDice: manifestDice,
       gameBoard: gameBoard,
       createMoveSpace: createMoveSpace,
