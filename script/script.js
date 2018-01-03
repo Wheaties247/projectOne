@@ -65,6 +65,9 @@ $(function() {
     this.createMoveSpace($movementZone2, 2);
     this.createMoveSpace($movementZone3, 3);
     this.createMoveSpace($movementZone4, 4);
+    this.manifestDice();
+    var $holdsDie = $('#dieHolder');
+    $holdsDie.click(gameEngine.rollDice);
   }
   function createMoveSpace(zone, indx) {
     for (var i = 0; i < 30; i++) {
@@ -81,13 +84,31 @@ $(function() {
       zone.append($smallDiv);
     } //places 30 divisions in a Zone
   }
-  function manifestDice() {}
-  function diceRoll() {
-    var random = Math;
+  function manifestDice() {
+    var $homeSquare = $('#pieceHome5');
+    var $die1 = $('<div>', { class: 'dice', id: 'die1' });
+    var $die2 = $('<div>', { class: 'dice', id: 'die2' });
+    $die2.css({ margin: '0 10px 0 10px' });
+    var $holdsDie = $('<div>', { id: 'dieHolder' });
+    $holdsDie.append($die1, $die2);
+    $homeSquare.append($holdsDie);
+  }
+  function diceVal() {
+    var random = Math.floor(1 + Math.random() * 6); //random integer between 1-6
+    return random;
+  }
+  function rollDice() {
+    var $valueOfDice = gameEngine.diceVal();
+    var $valueOfDice2 = gameEngine.diceVal();
+    var $die1 = $('#die1'),
+      $die2 = $('#die2');
+    $die1.text($valueOfDice);
+    $die2.text($valueOfDice2);
   }
   var gameEngine = {
       // howManyPlayers: howManyPlayers,
-      diceRoll: diceRoll,
+      diceVal: diceVal,
+      rollDice: rollDice,
     },
     userInterphase = {
       // startLanding: startLanding,

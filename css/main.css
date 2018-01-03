@@ -31,3 +31,23 @@ body {
 #pieceHome8 {
   transform: rotate(90deg);
 }
+#pieceHome5 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#dieHolder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background: teal;
+}
+.dice {
+  background: white;
+  border: 1px solid black;
+  width: 30px;
+  height: 30px;
+  margin-left: 10px;
+}
