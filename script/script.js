@@ -104,11 +104,16 @@ $(function() {
       $die2 = $('#die2');
     $die1.text($valueOfDice);
     $die2.text($valueOfDice2);
+    this.dice1LastRoll = $valueOfDice;
+    this.dice2LastRoll = $valueOfDice2;
+    console.log(gameEngine);
   }
   var gameEngine = {
       // howManyPlayers: howManyPlayers,
       diceVal: diceVal,
       rollDice: rollDice,
+      dice1LastRoll: null,
+      dice2LastRoll: null,
     },
     userInterphase = {
       // startLanding: startLanding,
