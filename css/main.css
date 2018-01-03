@@ -1,0 +1,33 @@
+body {
+  background-color: green;
+  display: flex;
+  justify-content: center;
+}
+/*#startingScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#startButton {
+  text-align: center;
+  font-size: 25px;
+}*/
+#gameScreen {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+#pieceHome4,
+#pieceHome2,
+#pieceHome8,
+#pieceHome6 {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+#pieceHome2,
+#pieceHome8 {
+  transform: rotate(90deg);
+}
