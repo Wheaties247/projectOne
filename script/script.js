@@ -118,59 +118,23 @@ $(function() {
 
     for (var i = 0; i < 4; i++) {
       var $playerToken = $('<div>', { class: 'firstTokens' });
-      $playerToken.css({
-        width: '15px',
-        height: '15px',
-        background: 'red',
-        border: '1px solid black',
-        borderRadius: '6px',
-        margin: '1px',
-      });
       $firstPlayer.append($playerToken);
-    }
-    for (var i = 0; i < 4; i++) {
       var $player2Token = $('<div>', { class: 'secondTokens' });
-      $player2Token.css({
-        width: '15px',
-        height: '15px',
-        background: 'green',
-        border: '1px solid black',
-        borderRadius: '6px',
-        margin: '1px',
-      });
       $secondPlayer.append($player2Token);
-    }
-    for (var i = 0; i < 4; i++) {
-      var $player3Token = $('<div>', { class: 'ThirdTokens' });
-      $player3Token.css({
-        width: '15px',
-        height: '15px',
-        background: 'blue',
-        border: '1px solid black',
-        borderRadius: '6px',
-        margin: '1px',
-      });
+      var $player3Token = $('<div>', { class: 'thirdTokens' });
       $thirdPlayer.append($player3Token);
-    }
-    for (var i = 0; i < 4; i++) {
-      var $player4Token = $('<div>', { class: 'FourthTokens' });
-      $player4Token.css({
-        width: '15px',
-        height: '15px',
-        background: 'purple',
-        border: '1px solid black',
-        borderRadius: '6px',
-        margin: '1px',
-      });
+      var $player4Token = $('<div>', { class: 'fourthTokens' });
       $fourthPlayer.append($player4Token);
     }
   }
+  function movePieces() {}
   var gameEngine = {
       // howManyPlayers: howManyPlayers,
       diceVal: diceVal,
       rollDice: rollDice,
       dice1LastRoll: 0,
       dice2LastRoll: 0,
+      movePieces: movePieces,
     },
     userInterphase = {
       // startLanding: startLanding,

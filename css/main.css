@@ -60,3 +60,35 @@ body {
   align-items: center;
   justify-content: center;
 }
+.firstTokens {
+  width: 15px;
+  height: 15px;
+  background: red;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 1px;
+}
+.secondTokens {
+  width: 15px;
+  height: 15px;
+  background: green;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 1px;
+}
+.thirdTokens {
+  width: 15px;
+  height: 15px;
+  background: blue;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 1px;
+}
+.fourthTokens {
+  width: 15px;
+  height: 15px;
+  background: purple;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 1px;
+}
