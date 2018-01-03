@@ -94,26 +94,27 @@ $(function() {
     $homeSquare.append($holdsDie);
   }
   function diceVal() {
-    var random = Math.floor(1 + Math.random() * 6); //random integer between 1-6
-    return random;
+    var random = Math.floor(1 + Math.random() * 6);
+    var random2 = Math.floor(1 + Math.random() * 6); //random integer between 1-6
+    this.dice1LastRoll = random;
+    this.dice2LastRoll = random2;
   }
   function rollDice() {
-    var $valueOfDice = gameEngine.diceVal();
-    var $valueOfDice2 = gameEngine.diceVal();
+    gameEngine.diceVal();
+    var $valueOfDice = gameEngine.dice1LastRoll;
+    var $valueOfDice2 = gameEngine.dice2LastRoll;
     var $die1 = $('#die1'),
       $die2 = $('#die2');
     $die1.text($valueOfDice);
     $die2.text($valueOfDice2);
-    this.dice1LastRoll = $valueOfDice;
-    this.dice2LastRoll = $valueOfDice2;
     console.log(gameEngine);
   }
   var gameEngine = {
       // howManyPlayers: howManyPlayers,
       diceVal: diceVal,
       rollDice: rollDice,
-      dice1LastRoll: null,
-      dice2LastRoll: null,
+      dice1LastRoll: 0,
+      dice2LastRoll: 0,
     },
     userInterphase = {
       // startLanding: startLanding,
