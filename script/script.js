@@ -74,7 +74,7 @@ $(function() {
     for (var i = 0; i < 30; i++) {
       var $smallDiv = $('<div>', {
         id: `space${i + 1}`,
-        class: `movementSpace-zone${indx}`,
+        class: `movementSpace zone${indx}`,
       }); //creates 30 divs
       $smallDiv.css({
         width: '32%',
@@ -117,35 +117,58 @@ $(function() {
       $fourthPlayer = $('#pieceHome9');
 
     for (var i = 0; i < 4; i++) {
-      var $playerToken = $('<div>', { class: 'firstTokens' });
-      $firstPlayer.append($playerToken);
-      var $player2Token = $('<div>', { class: 'secondTokens' });
-      $secondPlayer.append($player2Token);
-      var $player3Token = $('<div>', { class: 'thirdTokens' });
-      $thirdPlayer.append($player3Token);
-      var $player4Token = $('<div>', { class: 'fourthTokens' });
-      $fourthPlayer.append($player4Token);
+      var $playerToken1 = $('<div>', { class: 'firstT tokens' }),
+        $playerToken2 = $('<div>', { class: 'secondT tokens' }),
+        $playerToken3 = $('<div>', { class: 'thirdT tokens' }),
+        $playerToken4 = $('<div>', { class: 'fourthT tokens' });
+      $playerToken1.css({ background: 'red' });
+      $playerToken2.css({ background: 'green' });
+      $playerToken3.css({ background: 'purple' });
+      $playerToken4.css({ background: 'blue' });
+      $firstPlayer.append($playerToken1);
+      $secondPlayer.append($playerToken2);
+      $thirdPlayer.append($playerToken3);
+      $fourthPlayer.append($playerToken4);
     }
   }
-  function movePieces() {}
+  function players() {
+    var $firstPlayer = $('.firstT'),
+      $secondPlayer = $('.secondT'),
+      $thirdPlayer = $('.thirdT'),
+      $fourthPlayer = $('.fourthT');
+    var $players = [$firstPlayer, $secondPlayer, $thirdPlayer, $fourthPlayer];
+    return $players;
+  }
+
+  function whichTurn() {
+    var $players = this.players();
+    for (var i = 0; i < $players.length; i++) {}
+  }
+
   var gameEngine = {
       // howManyPlayers: howManyPlayers,
       diceVal: diceVal,
       rollDice: rollDice,
       dice1LastRoll: 0,
       dice2LastRoll: 0,
-      movePieces: movePieces,
-    },
-    userInterphase = {
-      // startLanding: startLanding,
-      // fadeLanding: fadeLanding,
-      manifestPlayers: manifestPlayers,
-      manifestDice: manifestDice,
-      gameBoard: gameBoard,
-      createMoveSpace: createMoveSpace,
+      whichTurn: whichTurn,
+      players: players,
+      // movePieces: movePieces,
     },
     application = {
       initApp: initApp,
     };
-  application.initApp();
+  (userInterphase = {
+    // startLanding: startLanding,
+    // fadeLanding: fadeLanding,
+    manifestPlayers: manifestPlayers,
+    manifestDice: manifestDice,
+    gameBoard: gameBoard,
+    createMoveSpace: createMoveSpace,
+  }),
+    application.initApp();
+  // function movePieces() {
+  //   var $movementSpace = $('.movementSpace');
+  //   var
+  // }
 });

@@ -3,6 +3,22 @@ body {
   display: flex;
   justify-content: center;
 }
+.red {
+  background: red;
+}
+.yellow {
+  background: yellow;
+}
+.blue {
+  background: blue;
+}
+.purple {
+  background: purple;
+}
+.orange {
+  background: orange;
+}
+
 /*#startingScreen {
   display: flex;
   justify-content: center;
@@ -60,7 +76,14 @@ body {
   align-items: center;
   justify-content: center;
 }
-.firstTokens {
+.tokens {
+  width: 15px;
+  height: 15px;
+  border: 1px solid black;
+  border-radius: 6px;
+  margin: 1px;
+}
+/*.firstTokens {
   width: 15px;
   height: 15px;
   background: red;
@@ -91,4 +114,4 @@ body {
   border: 1px solid black;
   border-radius: 6px;
   margin: 1px;
-}
+}*/
