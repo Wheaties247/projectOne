@@ -132,26 +132,51 @@ $(function() {
     }
   }
   function players() {
-    var $firstPlayer = $('.firstT'),
-      $secondPlayer = $('.secondT'),
-      $thirdPlayer = $('.thirdT'),
-      $fourthPlayer = $('.fourthT');
-    var $players = [$firstPlayer, $secondPlayer, $thirdPlayer, $fourthPlayer];
-    return $players;
+    var playerSigil1 = document.querySelectorAll('.firstT'),
+      playerSigil2 = document.querySelectorAll('.secondT'),
+      playerSigil3 = document.querySelectorAll('.thirdT'),
+      playerSigil4 = document.querySelectorAll('.fourthT');
+    var playersArray = [
+      {
+        player_1: {
+          isMyturn: true,
+          isTurnEnd: false,
+          PlayerSigil: playerSigil1,
+        },
+        player_2: {
+          isMyturn: true,
+          isTurnEnd: false,
+          PlayerSigil: playerSigil2,
+        },
+        player_3: {
+          isMyturn: true,
+          isTurnEnd: false,
+          PlayerSigil: playerSigil3,
+        },
+        player_4: {
+          isMyturn: true,
+          isTurnEnd: false,
+          PlayerSigil: playerSigil4,
+        },
+      },
+    ];
+    return playersArray;
   }
 
-  function whichTurn() {
-    var $players = this.players();
-    for (var i = 0; i < $players.length; i++) {}
-  }
-
+  // function whosFirst() {
+  //   var players = this.players();
+  //   for (var i = 0; i < players.length; i++) {
+  //     if(players.)
+  //   }
+  // };
+  function whoGoesFirst() {}
   var gameEngine = {
       // howManyPlayers: howManyPlayers,
       diceVal: diceVal,
       rollDice: rollDice,
       dice1LastRoll: 0,
       dice2LastRoll: 0,
-      whichTurn: whichTurn,
+      // whosFirst: whosFirst,
       players: players,
       // movePieces: movePieces,
     },
