@@ -56,6 +56,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   width: 100px;
   height: 100px;
   background: teal;
@@ -82,6 +83,9 @@ body {
   border: 1px solid black;
   border-radius: 6px;
   margin: 1px;
+}
+#passTurnBtn {
+  flex: 2;
 }
 /*.firstTokens {
   width: 15px;
