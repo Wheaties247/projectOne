@@ -129,13 +129,18 @@ $(function() {
     return (application.$passTurnBtn = $passTurnBtn);
   }
   function mainfestCurrentPlayer() {
-    var $whosTurnDisplay = $('<div>', { id: 'currentPlayerDisplay' });
-    $whosTurnDisplay.css({
-      width: '200px',
-      height: '60px',
-      background: 'gray',
-    });
-    $('body').prepend($whosTurnDisplay);
+    var $divHUD = $('<div>', { id: 'containerHUD' });
+    $('body').prepend($divHUD);
+    for (var i = 0; i < 4; i++) {
+      var $whosTurnDisplay = $('<div>', { id: `currentPlayerDisplay${i + 1}` });
+      $whosTurnDisplay.css({
+        width: '200px',
+        height: '60px',
+        background: 'gray',
+        border: '1px solid black',
+      });
+      $($divHUD).append($whosTurnDisplay);
+    }
   }
   //End Of manifestations
 
@@ -195,13 +200,28 @@ $(function() {
   //     }
   //   }
   // }
-  function initialTurnOrder() {
+
+  function current() {
     var players = gameEngine.players();
-    var $displayBox = $('#currentPlayerDisplay');
+    var $displayBox1 = $('#currentPlayerDisplay1'),
+      $displayBox2 = $('#currentPlayerDisplay2'),
+      $displayBox3 = $('#currentPlayerDisplay3'),
+      $displayBox4 = $('#currentPlayerDisplay4');
+
     for (var i = 0; i < players.length; i++) {
       if (players[i].currentTurn === true) {
-        var currentPlayer = players[i];
-        $displayBox.text(currentPlayer.name);
+        var currentPlayer = players[i],
+          whosTurn = ` it is ${players[i].name}'s turn.`,
+          hasRolled = `${players[i].name} rolled?: ${players[i].hasRolled}`,
+          hasMoved = `${players[i].name} moved? : ${players[i].hasMoved}`,
+          turnOver = `${players[i].name}'s turn over?: ${players[i].isTurnEnd}`;
+        application.currentPlayer = players[i];
+        $displayBox1.text(whosTurn);
+        $displayBox2.text(hasRolled);
+        $displayBox3.text(hasMoved);
+        $displayBox4.text(turnOver);
+      } else {
+        nextPlayersTurn(players[i + 1]);
       }
     }
   }
@@ -222,13 +242,14 @@ $(function() {
     this.dice1LastRoll = random;
     this.dice2LastRoll = random2;
   } //sets dice roll
+
   function rollDice() {
-    gameEngine.diceVal();
+    this.diceVal();
     var valueOfDice = gameEngine.dice1LastRoll,
       valueOfDice2 = gameEngine.dice2LastRoll,
       $die1 = $('#die1'),
       $die2 = $('#die2');
-    if (!haveTheyRolled) {
+    if (this.players.haveTheyRolled) {
       $die1.text(valueOfDice);
       $die2.text(valueOfDice2);
       haveTheyRolled.hasRolled = false;
@@ -247,7 +268,7 @@ $(function() {
     },
     application = {
       initApp: initApp,
-      initialTurnOrder: initialTurnOrder,
+      currentPlayer: currentPlayer,
     },
     userInterphase = {
       // startLanding: startLanding,
