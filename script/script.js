@@ -34,10 +34,10 @@ $(function() {
 
   function initApp() {
     // userInterphase.startLanding();
-    userInterphase.gameBoard();
-    application.initialTurnOrder();
+    userInterphase.renderGameBoard();
+    application.currentPlayer();
   }
-  function gameBoard() {
+  function renderGameBoard() {
     var $mainGameScreen = $('<div>', { id: 'gameScreen' }).css({
       background: 'black',
       width: '790px',
@@ -62,19 +62,19 @@ $(function() {
       $movementZone2 = $('#pieceHome2'),
       $movementZone3 = $('#pieceHome8'),
       $movementZone4 = $('#pieceHome6');
-    this.manifestMoveSpace($movementZone1, 1);
-    this.manifestMoveSpace($movementZone2, 2);
-    this.manifestMoveSpace($movementZone3, 3);
-    this.manifestMoveSpace($movementZone4, 4);
-    this.manifestDice();
-    this.manifestSigil();
-    this.manifestPassTurnBtn();
-    this.mainfestCurrentPlayer();
+    this.renderMoveSpace($movementZone1, 1);
+    this.renderMoveSpace($movementZone2, 2);
+    this.renderMoveSpace($movementZone3, 3);
+    this.renderMoveSpace($movementZone4, 4);
+    this.renderDice();
+    this.renderSigil();
+    this.renderPassTurnBtn();
+    this.renderCurrentPlayer();
     // var $holdsDie = $('#dieHolder');
     // $holdsDie.click(gameEngine.rollDice); // this line creates click event to roll die
     console.log(application);
   }
-  function manifestDice() {
+  function renderDice() {
     var $homeSquare = $('#pieceHome5');
     var $die1 = $('<div>', { class: 'dice', id: 'die1' });
     var $die2 = $('<div>', { class: 'dice', id: 'die2' });
@@ -84,7 +84,7 @@ $(function() {
     $homeSquare.append($holdsDie);
     return [$die1, $die2];
   }
-  function manifestSigil() {
+  function renderSigil() {
     var $firstPlayer = $('#pieceHome1'),
       $secondPlayer = $('#pieceHome7'),
       $thirdPlayer = $('#pieceHome3'),
@@ -105,7 +105,7 @@ $(function() {
       $fourthPlayer.append($playerToken4);
     }
   }
-  function manifestMoveSpace(zone, indx) {
+  function renderMoveSpace(zone, indx) {
     for (var i = 0; i < 30; i++) {
       var $smallDiv = $('<div>', {
         id: `space${i + 1}`,
@@ -120,7 +120,7 @@ $(function() {
       zone.append($smallDiv);
     } //places 30 divisions in a Zone
   }
-  function manifestPassTurnBtn() {
+  function renderPassTurnBtn() {
     var $passTurnBtn = $('<div>', { id: 'passTurnBtn', class: 'red' });
     $passTurnBtn.css({ width: '40px', height: '20px', display: 'none' });
     $passTurnBtn.text(`Click Here end ${application.currentPlayer}'s turn`);
@@ -128,7 +128,7 @@ $(function() {
 
     return (application.$passTurnBtn = $passTurnBtn);
   }
-  function mainfestCurrentPlayer() {
+  function renderCurrentPlayer() {
     var $divHUD = $('<div>', { id: 'containerHUD' });
     $('body').prepend($divHUD);
     for (var i = 0; i < 4; i++) {
@@ -190,18 +190,33 @@ $(function() {
     application.players = playersArray;
     return playersArray;
   }
-  // function whosTurn() {
-  //   var players = this.players();
-
-  //   for (var i = 0; i < players.length; i++) {
-  //     if (players[i].isMyturn || !players[i].hasMoved || players[i].hasRolled) {
-  //       application.currentPlayer = players[i];
-  //       return players[i].name;
-  //     }
-  //   }
-  // }
-
-  function current() {
+  function manifestMoveSpace() {
+    var moveZones = new Array(4);
+    for (var i = 0; i < moveZones.length; i++) {
+      moveZones[i] = new Array(89);
+      moveZones[i].fill(null);
+      moveZones[i].splice(78, 1, 'goalBreak');
+      moveZones[i].splice(88, 1, 'goal');
+    }
+    return moveZones;
+  }
+  function manifestSigil() {
+    var abstractSpaces = this.manifestMoveSpace(),
+      moveZone1 = abstractSpaces[0],
+      moveZone2 = abstractSpaces[1],
+      moveZone3 = abstractSpaces[2],
+      moveZone4 = abstractSpaces[3],
+      player_1 = new Array(4).fill('first'),
+      player_2 = new Array(4).fill('second'),
+      player_3 = new Array(4).fill('third'),
+      player_4 = new Array(4).fill('fourth');
+    moveZone1.splice(0, 1, player_1);
+    moveZone2.splice(0, 1, player_2);
+    moveZone3.splice(0, 1, player_3);
+    moveZone4.splice(0, 1, player_4);
+    return [moveZone1, moveZone2, moveZone3, moveZone4];
+  }
+  function currentPlayer() {
     var players = gameEngine.players();
     var $displayBox1 = $('#currentPlayerDisplay1'),
       $displayBox2 = $('#currentPlayerDisplay2'),
@@ -221,7 +236,7 @@ $(function() {
         $displayBox3.text(hasMoved);
         $displayBox4.text(turnOver);
       } else {
-        nextPlayersTurn(players[i + 1]);
+        // nextPlayersTurn(players[i + 1]);
       }
     }
   }
@@ -257,7 +272,8 @@ $(function() {
   } // sets last roll and displays in on the screen
   function whoGoesFirst() {}
   var gameEngine = {
-      // howManyPlayers: howManyPlayers,
+      manifestMoveSpace: manifestMoveSpace,
+      manifestSigil: manifestSigil,
       diceVal: diceVal,
       rollDice: rollDice,
       dice1LastRoll: 0,
@@ -273,12 +289,12 @@ $(function() {
     userInterphase = {
       // startLanding: startLanding,
       // fadeLanding: fadeLanding,
-      manifestPassTurnBtn: manifestPassTurnBtn,
-      manifestSigil: manifestSigil,
-      manifestDice: manifestDice,
-      gameBoard: gameBoard,
-      manifestMoveSpace: manifestMoveSpace,
-      mainfestCurrentPlayer: mainfestCurrentPlayer,
+      renderPassTurnBtn: renderPassTurnBtn,
+      renderSigil: renderSigil,
+      renderDice: renderDice,
+      renderGameBoard: renderGameBoard,
+      renderMoveSpace: renderMoveSpace,
+      renderCurrentPlayer: renderCurrentPlayer,
     };
   application.initApp();
   // function movePieces() {
