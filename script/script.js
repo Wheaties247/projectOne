@@ -70,6 +70,7 @@ $(function() {
     this.renderSigil();
     this.renderPassTurnBtn();
     this.renderCurrentPlayer();
+    this.renderCellClass();
     // var $holdsDie = $('#dieHolder');
     // $holdsDie.click(gameEngine.rollDice); // this line creates click event to roll die
     console.log(application);
@@ -108,7 +109,6 @@ $(function() {
   function renderMoveSpace(zone, indx) {
     for (var i = 0; i < 30; i++) {
       var $smallDiv = $('<div>', {
-        id: `space${i + 1}`,
         class: `movementSpace zone${indx}`,
       }); //creates 30 divs
       $smallDiv.css({
@@ -119,6 +119,12 @@ $(function() {
       });
       zone.append($smallDiv);
     } //places 30 divisions in a Zone
+  }
+  function renderCellClass() {
+    var movementCells = document.querySelectorAll('.movementSpace');
+    for (var i = 0; i < movementCells.length; i++) {
+      movementCells[i].setAttribute('class', `cell${i + 1}`);
+    }
   }
   function renderPassTurnBtn() {
     var $passTurnBtn = $('<div>', { id: 'passTurnBtn', class: 'red' });
@@ -142,7 +148,7 @@ $(function() {
       $($divHUD).append($whosTurnDisplay);
     }
   }
-  //End Of manifestations
+  //End Of renders
 
   function players() {
     var playerSigil1 = document.querySelectorAll('.firstT'),
@@ -190,31 +196,43 @@ $(function() {
     application.players = playersArray;
     return playersArray;
   }
-  function manifestMoveSpace() {
-    var moveZones = new Array(4);
-    for (var i = 0; i < moveZones.length; i++) {
-      moveZones[i] = new Array(89);
-      moveZones[i].fill(null);
-      moveZones[i].splice(78, 1, 'goalBreak');
-      moveZones[i].splice(88, 1, 'goal');
-    }
+  function manifestSharedSpace() {
+    var moveZones = new Array(84); // shared move space
+    moveZones.fill(null);
+
+    moveZones.splice(15, 1, ['goalBreak1']);
+    moveZones.splice(36, 1, ['goalBreak2']);
+    moveZones.splice(57, 1, ['goalBreak3']);
+    moveZones.splice(78, 1, ['goalBreak4']);
+    moveZones.splice(0, 1, ['home4']); //at index 0 in the shared space array i create home4 array
+    moveZones.splice(21, 1, ['home1']); //at index 21 in the shared space array i create home1 array
+    moveZones.splice(42, 1, ['home2']); //at index 42 in the shared space array i create home2 array
+    moveZones.splice(63, 1, ['home3']); //at index 63 in the shared space array i create home3 array
+
     return moveZones;
   }
+  function manifestGoalZones() {
+    var theGoalZones = [];
+    for (var i = 0; i < 4; i++) {
+      //create 4 goal zone arrays
+      var goalZones = new Array(11);
+      goalZones.fill(null);
+      goalZones.splice(10, 1, 'goal');
+      theGoalZones.push(goalZones);
+    }
+    return theGoalZones;
+  }
   function manifestSigil() {
-    var abstractSpaces = this.manifestMoveSpace(),
-      moveZone1 = abstractSpaces[0],
-      moveZone2 = abstractSpaces[1],
-      moveZone3 = abstractSpaces[2],
-      moveZone4 = abstractSpaces[3],
+    var sharedMoveZone = this.manifestSharedSpace(),
       player_1 = new Array(4).fill('first'),
       player_2 = new Array(4).fill('second'),
       player_3 = new Array(4).fill('third'),
       player_4 = new Array(4).fill('fourth');
-    moveZone1.splice(0, 1, player_1);
-    moveZone2.splice(0, 1, player_2);
-    moveZone3.splice(0, 1, player_3);
-    moveZone4.splice(0, 1, player_4);
-    return [moveZone1, moveZone2, moveZone3, moveZone4];
+    sharedMoveZone[21].splice(0, 0, player_1);
+    sharedMoveZone[42].splice(0, 0, player_2);
+    sharedMoveZone[63].splice(0, 0, player_3);
+    sharedMoveZone[0].splice(0, 0, player_4);
+    return sharedMoveZone;
   }
   function currentPlayer() {
     var players = gameEngine.players();
@@ -272,7 +290,7 @@ $(function() {
   } // sets last roll and displays in on the screen
   function whoGoesFirst() {}
   var gameEngine = {
-      manifestMoveSpace: manifestMoveSpace,
+      manifestSharedSpace: manifestSharedSpace,
       manifestSigil: manifestSigil,
       diceVal: diceVal,
       rollDice: rollDice,
@@ -289,6 +307,7 @@ $(function() {
     userInterphase = {
       // startLanding: startLanding,
       // fadeLanding: fadeLanding,
+      renderCellClass: renderCellClass,
       renderPassTurnBtn: renderPassTurnBtn,
       renderSigil: renderSigil,
       renderDice: renderDice,
