@@ -200,10 +200,10 @@ $(function() {
     var moveZones = new Array(84); // shared move space
     moveZones.fill(null);
 
-    moveZones.splice(15, 1, ['goalBreak1']);
-    moveZones.splice(36, 1, ['goalBreak2']);
-    moveZones.splice(57, 1, ['goalBreak3']);
-    moveZones.splice(78, 1, ['goalBreak4']);
+    moveZones.splice(15, 1, ['goalBreak1']); //at index 15 in the shared space arra I create goalBreak1 array
+    moveZones.splice(36, 1, ['goalBreak2']); //at index 36 in the shared space array I create goalBreak2 array
+    moveZones.splice(57, 1, ['goalBreak3']); //at index 57 in the shared space array I create goalBreak3 array
+    moveZones.splice(78, 1, ['goalBreak4']); //at index 78 in the shared space array I create goalBreak4 array
     moveZones.splice(0, 1, ['home4']); //at index 0 in the shared space array i create home4 array
     moveZones.splice(21, 1, ['home1']); //at index 21 in the shared space array i create home1 array
     moveZones.splice(42, 1, ['home2']); //at index 42 in the shared space array i create home2 array
@@ -222,7 +222,7 @@ $(function() {
     }
     return theGoalZones;
   }
-  function manifestSigil() {
+  function manifestSigilandSpace() {
     var sharedMoveZone = this.manifestSharedSpace(),
       player_1 = new Array(4).fill('first'),
       player_2 = new Array(4).fill('second'),
@@ -233,6 +233,19 @@ $(function() {
     sharedMoveZone[63].splice(0, 0, player_3);
     sharedMoveZone[0].splice(0, 0, player_4);
     return sharedMoveZone;
+  }
+  function joinGoalToMoveSpace() {
+    var sharedSpace = this.manifestSigilandSpace();
+    var theGoalZones = this.manifestGoalZones();
+    var firstGoalZone = theGoalZones[0];
+    var secondGoalZone = theGoalZones[1];
+    var thirdGoalZone = theGoalZones[2];
+    var fourthGoalZone = theGoalZones[3];
+    sharedSpace[15].splice(0, 0, firstGoalZone);
+    sharedSpace[36].splice(0, 0, secondGoalZone);
+    sharedSpace[57].splice(0, 0, thirdGoalZone);
+    sharedSpace[78].splice(0, 0, fourthGoalZone);
+    return sharedSpace;
   }
   function currentPlayer() {
     var players = gameEngine.players();
@@ -291,7 +304,9 @@ $(function() {
   function whoGoesFirst() {}
   var gameEngine = {
       manifestSharedSpace: manifestSharedSpace,
-      manifestSigil: manifestSigil,
+      manifestSigilandSpace: manifestSigilandSpace,
+      manifestGoalZones: manifestGoalZones,
+      joinGoalToMoveSpace: joinGoalToMoveSpace,
       diceVal: diceVal,
       rollDice: rollDice,
       dice1LastRoll: 0,
