@@ -37,14 +37,13 @@ $(function() {
     userInterphase.renderGameBoard();
     gameEngine.joinGoalToMoveSpace();
     application.currentPlayer();
-    application.joinDOMnDigitalArrays();
   }
   function renderGameBoard() {
     var $mainGameScreen = $('<div>', { id: 'gameScreen' }).css({
       background: 'black',
       width: '790px',
       height: '790px',
-      border: '4px solid red',
+      border: '4px solid orange',
     });
     $('body').append($mainGameScreen);
     //created game Background Screen
@@ -73,7 +72,6 @@ $(function() {
     this.renderPassTurnBtn();
     this.renderCurrentPlayer();
     this.renderCellId();
-    this.moveSpaceSelect();
     // var $holdsDie = $('#dieHolder');
     // $holdsDie.click(gameEngine.rollDice); // this line creates click event to roll die
     console.log(application, userInterphase);
@@ -122,64 +120,65 @@ $(function() {
       zone.append($smallDiv);
     } //places 30 divisions in a Zone
   }
-  function moveSpaceSelect() {
-    var moveSpace = [];
-    var cells = [].slice.call(document.querySelectorAll('.cell'));
-    // grabs all elements with the class cell and converts array of node lists into an array to preform array methods on
-    var portion1 = cells.slice(20, 25).reverse();
-    var portion2 = cells.slice(60, 70);
-    var portion3 = cells[79];
-    var portion4 = cells.slice(80, 90).reverse();
-    var portion5 = cells.slice(110, 120).reverse();
-    var portion6 = cells[100];
-    var portion7 = cells.slice(90, 100);
-    var portion8 = cells.slice(50, 60).reverse();
-    var portion9 = cells[40];
-    var portion10 = cells.slice(30, 40);
-    var portion11 = cells.slice(0, 10);
-    var portion12 = cells[19];
-    var portion13 = cells.slice(25, 30).reverse();
-    var sharedMoveSpace = moveSpace.concat(
-      portion1,
-      portion2,
-      portion3,
-      portion4,
-      portion5,
-      portion6,
-      portion7,
-      portion8,
-      portion9,
-      portion10,
-      portion11,
-      portion12,
-      portion13
-    );
-    application.sharedMoveSpace = sharedMoveSpace;
-    //got the 84 spaces that the sigil move on
-    var goalZone = [];
+  // function moveSpaceSelect() {
+  //   var moveSpace = [];
+  //   var cells = [].slice.call(document.querySelectorAll('.cell'));
+  //   // grabs all elements with the class cell and converts array of node lists into an array to preform array methods on
+  //   var portion1 = cells.slice(20, 25).reverse();
+  //   var portion2 = cells.slice(60, 70);
+  //   var portion3 = cells[79];
+  //   var portion4 = cells.slice(80, 90).reverse();
+  //   var portion5 = cells.slice(110, 120).reverse();
+  //   var portion6 = cells[100];
+  //   var portion7 = cells.slice(90, 100);
+  //   var portion8 = cells.slice(50, 60).reverse();
+  //   var portion9 = cells[40];
+  //   var portion10 = cells.slice(30, 40);
+  //   var portion11 = cells.slice(0, 10);
+  //   var portion12 = cells[19];
+  //   var portion13 = cells.slice(25, 30).reverse();
+  //   var sharedMoveSpace = moveSpace.concat(
+  //     portion1,
+  //     portion2,
+  //     portion3,
+  //     portion4,
+  //     portion5,
+  //     portion6,
+  //     portion7,
+  //     portion8,
+  //     portion9,
+  //     portion10,
+  //     portion11,
+  //     portion12,
+  //     portion13
+  //   );
+  //   application.sharedMoveSpace = sharedMoveSpace;
+  //   //got the 84 spaces that the sigil move on
+  //   var goalZone = [];
 
-    var zone1 = cells.slice(10, 20).reverse();
-    var zone2 = cells.slice(70, 80).reverse();
-    var zone3 = cells.slice(100, 110);
-    var zone4 = cells.slice(40, 50);
-    goalZone.push(zone1, zone2, zone3, zone4);
-    userInterphase.goalZones = goalZone;
+  //   var zone1 = cells.slice(10, 20).reverse();
+  //   var zone2 = cells.slice(70, 80).reverse();
+  //   var zone3 = cells.slice(100, 110);
+  //   var zone4 = cells.slice(40, 50);
+  //   goalZone.push(zone1, zone2, zone3, zone4);
+  //   userInterphase.goalZones = goalZone;
 
-    return sharedMoveSpace;
-  }
+  //   return sharedMoveSpace;
+  // }
   function renderCellId() {
     var movementCells = document.querySelectorAll('.cell');
     for (var i = 0; i < movementCells.length; i++) {
       movementCells[i].setAttribute('id', `cell${i + 1}`);
     }
   }
+
   function renderPassTurnBtn() {
     var $passTurnBtn = $('<div>', { id: 'passTurnBtn', class: 'red' });
     $passTurnBtn.css({ width: '40px', height: '20px', display: 'none' });
     $passTurnBtn.text(`Click Here end ${application.currentPlayer}'s turn`);
     $('#dieHolder').append($passTurnBtn);
 
-    return (application.$passTurnBtn = $passTurnBtn);
+    application.$passTurnBtn = $passTurnBtn;
   }
   function renderCurrentPlayer() {
     var $divHUD = $('<div>', { id: 'containerHUD' });
@@ -381,15 +380,9 @@ $(function() {
     sharedSpaceDigital.splice(83, 1, document.querySelector('#cell25'));
     //end of hard coding
     application.sharedSpaceDigital = sharedSpaceDigital;
-    return sharedSpaceDigital;
   }
-  function joinDOMnDigitalArrays() {
-    var sharedSpaceDigital = this.sharedSpaceDigital;
-    var sharedSpaceDOM = this.sharedMoveSpace;
-    for (var i = 0; i < sharedSpaceDOM.length; i++) {
-      sharedSpaceDOM[i].dataset.index = `${i}`;
-    }
-    console.log(sharedSpaceDOM);
+  function moveSigil() {
+    var sharedSpace = this.sharedSpaceDigital;
   }
   function currentPlayer() {
     var players = gameEngine.players();
@@ -462,7 +455,7 @@ $(function() {
     application = {
       initApp: initApp,
       currentPlayer: currentPlayer,
-      joinDOMnDigitalArrays: joinDOMnDigitalArrays,
+      moveSigil: moveSigil,
     },
     userInterphase = {
       // startLanding: startLanding,
@@ -474,7 +467,6 @@ $(function() {
       renderGameBoard: renderGameBoard,
       renderMoveSpace: renderMoveSpace,
       renderCurrentPlayer: renderCurrentPlayer,
-      moveSpaceSelect: moveSpaceSelect,
     };
   application.initApp();
   // function movePieces() {
