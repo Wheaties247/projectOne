@@ -87,6 +87,21 @@ body {
 #passTurnBtn {
   flex: 2;
 }
+.cell {
+  background: teal;
+}
+#cell36,
+#cell25,
+#cell85,
+#cell96 {
+  background: white;
+}
+#cell80,
+#cell101,
+#cell41,
+#cell20 {
+  background: gray;
+}
 /*.firstTokens {
   width: 15px;
   height: 15px;

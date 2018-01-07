@@ -35,7 +35,9 @@ $(function() {
   function initApp() {
     // userInterphase.startLanding();
     userInterphase.renderGameBoard();
+    gameEngine.joinGoalToMoveSpace();
     application.currentPlayer();
+    application.joinDOMnDigitalArrays();
   }
   function renderGameBoard() {
     var $mainGameScreen = $('<div>', { id: 'gameScreen' }).css({
@@ -70,10 +72,11 @@ $(function() {
     this.renderSigil();
     this.renderPassTurnBtn();
     this.renderCurrentPlayer();
-    this.renderCellClass();
+    this.renderCellId();
+    this.moveSpaceSelect();
     // var $holdsDie = $('#dieHolder');
     // $holdsDie.click(gameEngine.rollDice); // this line creates click event to roll die
-    console.log(application);
+    console.log(application, userInterphase);
   }
   function renderDice() {
     var $homeSquare = $('#pieceHome5');
@@ -109,21 +112,65 @@ $(function() {
   function renderMoveSpace(zone, indx) {
     for (var i = 0; i < 30; i++) {
       var $smallDiv = $('<div>', {
-        class: `movementSpace zone${indx}`,
+        class: 'cell',
       }); //creates 30 divs
       $smallDiv.css({
         width: '32%',
         height: '8.5%',
-        background: 'teal',
         border: '1px solid black',
       });
       zone.append($smallDiv);
     } //places 30 divisions in a Zone
   }
-  function renderCellClass() {
-    var movementCells = document.querySelectorAll('.movementSpace');
+  function moveSpaceSelect() {
+    var moveSpace = [];
+    var cells = [].slice.call(document.querySelectorAll('.cell'));
+    // grabs all elements with the class cell and converts array of node lists into an array to preform array methods on
+    var portion1 = cells.slice(20, 25).reverse();
+    var portion2 = cells.slice(60, 70);
+    var portion3 = cells[79];
+    var portion4 = cells.slice(80, 90).reverse();
+    var portion5 = cells.slice(110, 120).reverse();
+    var portion6 = cells[100];
+    var portion7 = cells.slice(90, 100);
+    var portion8 = cells.slice(50, 60).reverse();
+    var portion9 = cells[40];
+    var portion10 = cells.slice(30, 40);
+    var portion11 = cells.slice(0, 10);
+    var portion12 = cells[19];
+    var portion13 = cells.slice(25, 30).reverse();
+    var sharedMoveSpace = moveSpace.concat(
+      portion1,
+      portion2,
+      portion3,
+      portion4,
+      portion5,
+      portion6,
+      portion7,
+      portion8,
+      portion9,
+      portion10,
+      portion11,
+      portion12,
+      portion13
+    );
+    application.sharedMoveSpace = sharedMoveSpace;
+    //got the 84 spaces that the sigil move on
+    var goalZone = [];
+
+    var zone1 = cells.slice(10, 20).reverse();
+    var zone2 = cells.slice(70, 80).reverse();
+    var zone3 = cells.slice(100, 110);
+    var zone4 = cells.slice(40, 50);
+    goalZone.push(zone1, zone2, zone3, zone4);
+    userInterphase.goalZones = goalZone;
+
+    return sharedMoveSpace;
+  }
+  function renderCellId() {
+    var movementCells = document.querySelectorAll('.cell');
     for (var i = 0; i < movementCells.length; i++) {
-      movementCells[i].setAttribute('class', `cell${i + 1}`);
+      movementCells[i].setAttribute('id', `cell${i + 1}`);
     }
   }
   function renderPassTurnBtn() {
@@ -148,6 +195,7 @@ $(function() {
       $($divHUD).append($whosTurnDisplay);
     }
   }
+
   //End Of renders
 
   function players() {
@@ -200,15 +248,14 @@ $(function() {
     var moveZones = new Array(84); // shared move space
     moveZones.fill(null);
 
-    moveZones.splice(15, 1, ['goalBreak1']); //at index 15 in the shared space arra I create goalBreak1 array
+    moveZones.splice(15, 1, ['goalBreak3']); //at index 15 in the shared space arra I create goalBreak3 array
     moveZones.splice(36, 1, ['goalBreak2']); //at index 36 in the shared space array I create goalBreak2 array
-    moveZones.splice(57, 1, ['goalBreak3']); //at index 57 in the shared space array I create goalBreak3 array
+    moveZones.splice(57, 1, ['goalBreak1']); //at index 57 in the shared space array I create goalBreak1 array
     moveZones.splice(78, 1, ['goalBreak4']); //at index 78 in the shared space array I create goalBreak4 array
     moveZones.splice(0, 1, ['home4']); //at index 0 in the shared space array i create home4 array
-    moveZones.splice(21, 1, ['home1']); //at index 21 in the shared space array i create home1 array
+    moveZones.splice(21, 1, ['home3']); //at index 21 in the shared space array i create home3 array
     moveZones.splice(42, 1, ['home2']); //at index 42 in the shared space array i create home2 array
-    moveZones.splice(63, 1, ['home3']); //at index 63 in the shared space array i create home3 array
-
+    moveZones.splice(63, 1, ['home1']); //at index 63 in the shared space array i create home3 array
     return moveZones;
   }
   function manifestGoalZones() {
@@ -224,28 +271,125 @@ $(function() {
   }
   function manifestSigilandSpace() {
     var sharedMoveZone = this.manifestSharedSpace(),
-      player_1 = new Array(4).fill('first'),
-      player_2 = new Array(4).fill('second'),
-      player_3 = new Array(4).fill('third'),
-      player_4 = new Array(4).fill('fourth');
-    sharedMoveZone[21].splice(0, 0, player_1);
+      player_1 = [].slice.call(document.querySelectorAll('.firstT')),
+      // [].slice.call()-grabs all elements with the class cell and converts
+      //array of node lists into an array to preform array methods on
+      player_2 = [].slice.call(document.querySelectorAll('.secondT')),
+      player_3 = [].slice.call(document.querySelectorAll('.thirdT')),
+      player_4 = [].slice.call(document.querySelectorAll('.fourthT'));
+    sharedMoveZone[21].splice(0, 0, player_3);
     sharedMoveZone[42].splice(0, 0, player_2);
-    sharedMoveZone[63].splice(0, 0, player_3);
+    sharedMoveZone[63].splice(0, 0, player_1);
     sharedMoveZone[0].splice(0, 0, player_4);
     return sharedMoveZone;
   }
   function joinGoalToMoveSpace() {
-    var sharedSpace = this.manifestSigilandSpace();
+    var sharedSpaceDigital = this.manifestSigilandSpace();
     var theGoalZones = this.manifestGoalZones();
     var firstGoalZone = theGoalZones[0];
     var secondGoalZone = theGoalZones[1];
     var thirdGoalZone = theGoalZones[2];
     var fourthGoalZone = theGoalZones[3];
-    sharedSpace[15].splice(0, 0, firstGoalZone);
-    sharedSpace[36].splice(0, 0, secondGoalZone);
-    sharedSpace[57].splice(0, 0, thirdGoalZone);
-    sharedSpace[78].splice(0, 0, fourthGoalZone);
-    return sharedSpace;
+    sharedSpaceDigital[15].splice(0, 0, firstGoalZone);
+    sharedSpaceDigital[36].splice(0, 0, secondGoalZone);
+    sharedSpaceDigital[57].splice(0, 0, thirdGoalZone);
+    sharedSpaceDigital[78].splice(0, 0, fourthGoalZone);
+    //i am going to hard code all the dom elements into the digital array
+    sharedSpaceDigital[0].splice(0, 0, document.querySelector('#cell25'));
+    sharedSpaceDigital.splice(1, 1, document.querySelector('#cell24'));
+    sharedSpaceDigital.splice(2, 1, document.querySelector('#cell23'));
+    sharedSpaceDigital.splice(3, 1, document.querySelector('#cell22'));
+    sharedSpaceDigital.splice(4, 1, document.querySelector('#cell21'));
+    sharedSpaceDigital.splice(5, 1, document.querySelector('#cell61'));
+    sharedSpaceDigital.splice(6, 1, document.querySelector('#cell62'));
+    sharedSpaceDigital.splice(7, 1, document.querySelector('#cell63'));
+    sharedSpaceDigital.splice(8, 1, document.querySelector('#cell64'));
+    sharedSpaceDigital.splice(9, 1, document.querySelector('#cell65'));
+    sharedSpaceDigital.splice(10, 1, document.querySelector('#cell66'));
+    sharedSpaceDigital.splice(11, 1, document.querySelector('#cell67'));
+    sharedSpaceDigital.splice(12, 1, document.querySelector('#cell68'));
+    sharedSpaceDigital.splice(13, 1, document.querySelector('#cell69'));
+    sharedSpaceDigital.splice(14, 1, document.querySelector('#cell70'));
+    sharedSpaceDigital[15].splice(0, 0, document.querySelector('#cell80'));
+    sharedSpaceDigital.splice(16, 1, document.querySelector('#cell90'));
+    sharedSpaceDigital.splice(17, 1, document.querySelector('#cell89'));
+    sharedSpaceDigital.splice(18, 1, document.querySelector('#cell87'));
+    sharedSpaceDigital.splice(19, 1, document.querySelector('#cell86'));
+    sharedSpaceDigital.splice(20, 1, document.querySelector('#cell85'));
+    sharedSpaceDigital[21].splice(0, 0, document.querySelector('#cell84'));
+    sharedSpaceDigital.splice(22, 1, document.querySelector('#cell83'));
+    sharedSpaceDigital.splice(23, 1, document.querySelector('#cell82'));
+    sharedSpaceDigital.splice(24, 1, document.querySelector('#cell81'));
+    sharedSpaceDigital.splice(25, 1, document.querySelector('#cell120'));
+    sharedSpaceDigital.splice(26, 1, document.querySelector('#cell119'));
+    sharedSpaceDigital.splice(27, 1, document.querySelector('#cell118'));
+    sharedSpaceDigital.splice(28, 1, document.querySelector('#cell117'));
+    sharedSpaceDigital.splice(29, 1, document.querySelector('#cell116'));
+    sharedSpaceDigital.splice(30, 1, document.querySelector('#cell115'));
+    sharedSpaceDigital.splice(31, 1, document.querySelector('#cell114'));
+    sharedSpaceDigital.splice(32, 1, document.querySelector('#cell113'));
+    sharedSpaceDigital.splice(33, 1, document.querySelector('#cell112'));
+    sharedSpaceDigital.splice(34, 1, document.querySelector('#cell111'));
+    sharedSpaceDigital.splice(35, 1, document.querySelector('#cell101'));
+    sharedSpaceDigital[36].splice(0, 0, document.querySelector('#cell91'));
+    sharedSpaceDigital.splice(37, 1, document.querySelector('#cell92'));
+    sharedSpaceDigital.splice(38, 1, document.querySelector('#cell93'));
+    sharedSpaceDigital.splice(39, 1, document.querySelector('#cell94'));
+    sharedSpaceDigital.splice(40, 1, document.querySelector('#cell95'));
+    sharedSpaceDigital.splice(41, 1, document.querySelector('#cell96'));
+    sharedSpaceDigital[42].splice(0, 0, document.querySelector('#cell97'));
+    sharedSpaceDigital.splice(43, 1, document.querySelector('#cell98'));
+    sharedSpaceDigital.splice(44, 1, document.querySelector('#cell99'));
+    sharedSpaceDigital.splice(45, 1, document.querySelector('#cell100'));
+    sharedSpaceDigital.splice(46, 1, document.querySelector('#cell60'));
+    sharedSpaceDigital.splice(47, 1, document.querySelector('#cell59'));
+    sharedSpaceDigital.splice(48, 1, document.querySelector('#cell58'));
+    sharedSpaceDigital.splice(49, 1, document.querySelector('#cell57'));
+    sharedSpaceDigital.splice(50, 1, document.querySelector('#cell56'));
+    sharedSpaceDigital.splice(51, 1, document.querySelector('#cell55'));
+    sharedSpaceDigital.splice(52, 1, document.querySelector('#cell54'));
+    sharedSpaceDigital.splice(53, 1, document.querySelector('#cell53'));
+    sharedSpaceDigital.splice(54, 1, document.querySelector('#cell52'));
+    sharedSpaceDigital.splice(55, 1, document.querySelector('#cell51'));
+    sharedSpaceDigital.splice(56, 1, document.querySelector('#cell41'));
+    sharedSpaceDigital[57].splice(0, 0, document.querySelector('#cell31'));
+    sharedSpaceDigital.splice(58, 1, document.querySelector('#cell32'));
+    sharedSpaceDigital.splice(59, 1, document.querySelector('#cell33'));
+    sharedSpaceDigital.splice(60, 1, document.querySelector('#cell34'));
+    sharedSpaceDigital.splice(61, 1, document.querySelector('#cell35'));
+    sharedSpaceDigital.splice(62, 1, document.querySelector('#cell36'));
+    sharedSpaceDigital[63].splice(0, 0, document.querySelector('#cell37'));
+    sharedSpaceDigital.splice(64, 1, document.querySelector('#cell38'));
+    sharedSpaceDigital.splice(65, 1, document.querySelector('#cell39'));
+    sharedSpaceDigital.splice(66, 1, document.querySelector('#cell40'));
+    sharedSpaceDigital.splice(67, 1, document.querySelector('#cell1'));
+    sharedSpaceDigital.splice(68, 1, document.querySelector('#cell2'));
+    sharedSpaceDigital.splice(69, 1, document.querySelector('#cell3'));
+    sharedSpaceDigital.splice(70, 1, document.querySelector('#cell4'));
+    sharedSpaceDigital.splice(71, 1, document.querySelector('#cell5'));
+    sharedSpaceDigital.splice(72, 1, document.querySelector('#cell6'));
+    sharedSpaceDigital.splice(73, 1, document.querySelector('#cell7'));
+    sharedSpaceDigital.splice(74, 1, document.querySelector('#cell8'));
+    sharedSpaceDigital.splice(75, 1, document.querySelector('#cell9'));
+    sharedSpaceDigital.splice(76, 1, document.querySelector('#cell10'));
+    sharedSpaceDigital.splice(77, 1, document.querySelector('#cell20'));
+    sharedSpaceDigital[78].splice(0, 0, document.querySelector('#cell30'));
+    sharedSpaceDigital.splice(79, 1, document.querySelector('#cell29'));
+    sharedSpaceDigital.splice(80, 1, document.querySelector('#cell28'));
+    sharedSpaceDigital.splice(81, 1, document.querySelector('#cell27'));
+    sharedSpaceDigital.splice(82, 1, document.querySelector('#cell26'));
+    sharedSpaceDigital.splice(83, 1, document.querySelector('#cell25'));
+    //end of hard coding
+    application.sharedSpaceDigital = sharedSpaceDigital;
+    return sharedSpaceDigital;
+  }
+  function joinDOMnDigitalArrays() {
+    var sharedSpaceDigital = this.sharedSpaceDigital;
+    var sharedSpaceDOM = this.sharedMoveSpace;
+    for (var i = 0; i < sharedSpaceDOM.length; i++) {
+      sharedSpaceDOM[i].dataset.index = `${i}`;
+    }
+    console.log(sharedSpaceDOM);
   }
   function currentPlayer() {
     var players = gameEngine.players();
@@ -318,17 +462,19 @@ $(function() {
     application = {
       initApp: initApp,
       currentPlayer: currentPlayer,
+      joinDOMnDigitalArrays: joinDOMnDigitalArrays,
     },
     userInterphase = {
       // startLanding: startLanding,
       // fadeLanding: fadeLanding,
-      renderCellClass: renderCellClass,
+      renderCellId: renderCellId,
       renderPassTurnBtn: renderPassTurnBtn,
       renderSigil: renderSigil,
       renderDice: renderDice,
       renderGameBoard: renderGameBoard,
       renderMoveSpace: renderMoveSpace,
       renderCurrentPlayer: renderCurrentPlayer,
+      moveSpaceSelect: moveSpaceSelect,
     };
   application.initApp();
   // function movePieces() {
