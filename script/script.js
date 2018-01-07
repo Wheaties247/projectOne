@@ -30,7 +30,7 @@ $(function() {
   //   return $startGameScreen;
   //   //created startButton Element and added to document
   // }
-  // function fadeLanding() {}
+  // function fadeLanding() {} global state
 
   function initApp() {
     // userInterphase.startLanding();
@@ -106,6 +106,9 @@ $(function() {
       $thirdPlayer.append($playerToken3);
       $fourthPlayer.append($playerToken4);
     }
+  }
+  function sigilId() {
+    var firstSigil = document.querySelectorAll('.first');
   }
   function renderMoveSpace(zone, indx) {
     for (var i = 0; i < 30; i++) {
@@ -209,6 +212,7 @@ $(function() {
         hasRolled: null,
         hasMoved: true,
         currentTurn: true,
+        attemptWin: true,
         PlayerSigil: playerSigil1,
         turnOrderDieRoll: 0,
       },
@@ -218,6 +222,7 @@ $(function() {
         hasRolled: null,
         hasMoved: null,
         currentTurn: false,
+        attemptWin: true,
         PlayerSigil: playerSigil2,
         turnOrderDieRoll: 0,
       },
@@ -227,6 +232,7 @@ $(function() {
         hasRolled: null,
         hasMoved: null,
         currentTurn: false,
+        attemptWin: true,
         PlayerSigil: playerSigil3,
         turnOrderDieRoll: 0,
       },
@@ -236,11 +242,12 @@ $(function() {
         hasRolled: null,
         hasMoved: null,
         currentTurn: false,
+        attemptWin: true,
         PlayerSigil: playerSigil4,
         turnOrderDieRoll: 0,
       },
     ];
-    application.players = playersArray;
+
     return playersArray;
   }
   function manifestSharedSpace() {
@@ -383,6 +390,7 @@ $(function() {
   }
   function moveSigil() {
     var sharedSpace = this.sharedSpaceDigital;
+    sharedSpace[0][0].appendChild();
   }
   function currentPlayer() {
     var players = gameEngine.players();
