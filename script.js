@@ -128,41 +128,34 @@ $(function() {
   function checkWin() {
     if (this.player1Score() >= this.setGoal) {
       var playAgain = confirm('player 1 wins, play again?');
-      if (playAgain) {
-        setTimeout(location.reload(), 5000);
-      } else {
-        var $restartGame = $('<div>', {
-          id: 'restart',
-          width: '100px',
-          height: '200px',
-        });
-        $restartGame.css({
-          width: '200px',
-          height: '100px',
-          background: 'red',
-        });
-        $restartGame.text('Click here to restart Game');
-        $('body').append($restartGame);
-        $restartGame.on('click', restart);
-      }
+
+      var $restartGame = $('<div>', {
+        id: 'restart',
+      });
+      $restartGame.css({
+        width: '200px',
+        height: '100px',
+        background: 'red',
+      });
+      $restartGame.text('Click here to restart Game');
+      $('body').append($restartGame);
+      $restartGame.on('click', restart);
     }
+
     if (this.player2Score() >= this.setGoal) {
       var playAgain = confirm('player 2 wins, play again?');
-      if (playAgain) {
-        setTimeout(location.reload(), 5000);
-      } else {
-        var $restartGame = $('<div>', {
-          id: 'restart',
-        });
-        $restartGame.css({
-          width: '200px',
-          height: '100px',
-          background: 'red',
-        });
-        $restartGame.text('CLICK HERE TO RESTART');
-        $('body').append($restartGame);
-        $restartGame.on('click', restart);
-      }
+
+      var $restartGame = $('<div>', {
+        id: 'restart',
+      });
+      $restartGame.css({
+        width: '200px',
+        height: '100px',
+        background: 'red',
+      });
+      $restartGame.text('CLICK HERE TO RESTART');
+      $('body').append($restartGame);
+      $restartGame.on('click', restart);
     }
   }
   function restart() {
