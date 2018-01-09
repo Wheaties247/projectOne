@@ -18,11 +18,11 @@ upon starting the 'REACH THE GOAL' game I was stuck attempting to represent
 
 ## here are the rules for REACH THE GOAL:
 
-1- upon opening the game you will be met with a black screen with red start button;
-2- when the start button is clicked there will be an alert box that asks you to input the goal you would like to reach this number needs to be a positive integer to validly play the game.
-3- after an allowed input is given, the browser will show a screen with two boxes (red and blue) that represent players two outlined boxes that represent the respective players previous rolls and two white boxes represent 6 sided dice.
-4- each player takes turns clicking the teal square to roll the dice.
-5- each players roll is saved and totaled, the first player to have their total rolls eaquate or surpass the set Goal wins.
+1. upon opening the game you will be met with a black screen with red start button;
+2. when the start button is clicked there will be an alert box that asks you to input the goal you would like to reach this number needs to be a positive integer to validly play the game.
+3. after an allowed input is given, the browser will show a screen with two boxes (red and blue) that represent players two outlined boxes that represent the respective players previous rolls and two white boxes represent 6 sided dice.
+4. each player takes turns clicking the teal square to roll the dice.
+5. each players roll is saved and totaled, the first player to have their total rolls eaquate or surpass the set Goal wins.
 
 some features I included were rendering each players previous rolls in the browser, as well as making it possible to choose the goal you would like to reach(before the number was set to 30);
 I also included a feature that allows you to restart the game after a player wins
