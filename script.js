@@ -36,8 +36,9 @@ $(function() {
     var $instructionsP = $('<p>');
     $startGameScreen.append($instructionsP);
     $instructionsP.text(`How to Play: When the red start Button is clicked users will be prompted to input a whole Positive integer.
-     After you submit the prompt, two players will take turns rolling the dice until the total sum of the respected players dice roll
-      is greater than or equal to the goal chosen at the start of the game. click the start button to begin!`);
+     After you submit the prompt, two players with starting score at zero will take turns rolling the dice and add the total to their current score. 
+     When the score of the respected player is greater than or equal to the goal chosen at the start of the game, then that player wins.
+      Click the start button to begin!`);
     $startButton.click(fadeLanding);
   }
   function fadeLanding() {
@@ -123,6 +124,7 @@ $(function() {
       document
         .querySelector('#diceHolder')
         .removeEventListener('click', rollDice);
+      $('#diceHolder').text('The game has Ended');
     }
   }
   function checkWin() {

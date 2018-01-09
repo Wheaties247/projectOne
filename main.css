@@ -27,10 +27,14 @@ body {
   height: 200px;
   background: teal;
   border-radius: 15px;
-  font-size: 15px;
+  font-size: 25px;
   position: absolute;
-  top: 280px;
+  top: 300px;
   border: 5px solid black;
+  transition: 0.7s;
+}
+#diceHolder:hover {
+  box-shadow: 5px 5px 5px black;
 }
 .previousScore {
   padding: 0;
@@ -51,6 +55,7 @@ body {
   z-index: -1;
   border-radius: 15px;
   text-align: center;
+  border: 4px solid black;
 }
 #restart {
   display: flex;
@@ -59,19 +64,26 @@ body {
   font-size: 20px;
   position: absolute;
   bottom: 10px;
+  border: 4px solid black;
   border-radius: 15px;
+  transition: 0.7s;
+}
+#restart:hover {
+  box-shadow: 5px 5px 5px black;
 }
 #player1Box,
 #player2Box,
 #pastScorePlayer1,
 #pastScorePlayer2 {
   position: relative;
-  top: 105px;
+  top: 115px;
   padding: 10px;
   border-radius: 15px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  border: 4px solid black;
+  margin: 5px;
 }
 #title {
   animation: colorFlip;
@@ -84,7 +96,7 @@ body {
   font-size: 20px;
 }
 #startButton:hover {
-  box-shadow: 10px 10px 5px white;
+  box-shadow: 5px 5px 5px purple;
 }
 #startButton {
   transition: 0.7s;
