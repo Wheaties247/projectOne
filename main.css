@@ -1,0 +1,105 @@
+body {
+  background: orange;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 30px;
+  text-align: center;
+}
+
+.dice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border: 3px solid black;
+  color: black;
+  margin: 15px;
+  border-radius: 5px;
+}
+#diceHolder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 200px;
+  height: 200px;
+  background: teal;
+  border-radius: 15px;
+  font-size: 15px;
+  position: absolute;
+  top: 280px;
+  border: 5px solid black;
+}
+.previousScore {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+#goal {
+  padding: 10px;
+  font-size: 20px;
+  position: absolute;
+  background: yellow;
+  width: 100px;
+  height: 100px;
+  top: 10px;
+  color: black;
+  z-index: -1;
+  border-radius: 15px;
+  text-align: center;
+}
+#restart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  position: absolute;
+  bottom: 10px;
+  border-radius: 15px;
+}
+#player1Box,
+#player2Box,
+#pastScorePlayer1,
+#pastScorePlayer2 {
+  position: relative;
+  top: 105px;
+  padding: 10px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+#title {
+  animation: colorFlip;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  color: red;
+  font-size: 120px;
+}
+#holderPara {
+  font-size: 20px;
+}
+#startButton:hover {
+  box-shadow: 10px 10px 5px white;
+}
+#startButton {
+  transition: 0.7s;
+}
+@keyframes colorFlip {
+  0% {
+    color: red;
+  }
+  30% {
+    color: yellow;
+  }
+  60% {
+    color: blue;
+  }
+  90% {
+    color: red;
+  }
+}
